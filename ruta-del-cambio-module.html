@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta del Cambio - OCP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f5e8 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20px;
+            width: 80px;
+            height: 200%;
+            background: rgba(255,255,255,0.15);
+            transform: rotate(15deg);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+        .module-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Project Selector */
+        .project-selector {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .selector-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .project-dropdown {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .project-dropdown:hover {
+            border-color: #27ae60;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+        }
+
+        .project-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-icon {
+            font-size: 18px;
+        }
+
+        .project-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .project-phase {
+            font-size: 12px;
+            color: #27ae60;
+        }
+
+        /* Progress Timeline */
+        .timeline-container {
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .overall-progress {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .progress-percentage {
+            background: #27ae60;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%);
+            height: 100%;
+            width: 60%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .timeline-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Timeline Steps */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #27ae60 0%, #27ae60 60%, #e0e0e0 60%, #e0e0e0 100%);
+        }
+
+        .timeline-step {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 60px;
+        }
+
+        .step-indicator {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            z-index: 2;
+        }
+
+        .step-indicator.completed {
+            background: #27ae60;
+        }
+
+        .step-indicator.active {
+            background: #f39c12;
+            animation: pulse 2s infinite;
+        }
+
+        .step-indicator.pending {
+            background: #bdc3c7;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .step-card.completed {
+            border-left-color: #27ae60;
+            background: #f8fff8;
+        }
+
+        .step-card.active {
+            border-left-color: #f39c12;
+            background: #fffbf0;
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2);
+        }
+
+        .step-card.pending {
+            border-left-color: #bdc3c7;
+            background: #f8f9fa;
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .step-phase {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .step-status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-active {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-pending {
+            background: #e2e3e5;
+            color: #6c757d;
+        }
+
+        .step-content {
+            margin-bottom: 15px;
+        }
+
+        .task-list {
+            margin-bottom: 15px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .task-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .task-checkbox.checked {
+            background: #27ae60;
+            border-color: #27ae60;
+            color: white;
+        }
+
+        .step-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .responsible {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-primary {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #219a52;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-secondary:hover {
+            background: #dee2e6;
+        }
+
+        .btn-upload {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-upload:hover {
+            background: #2980b9;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+
+        .nav-item:not(.active) {
+            color: #999;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 380px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .step-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="back-btn">← Volver al Dashboard</div>
+                <div class="module-title">
+                    🛤️ Ruta del Cambio
+                </div>
+                <div class="subtitle">Seguimiento de proyectos comunitarios</div>
+            </div>
+        </div>
+
+        <!-- Project Selector -->
+        <div class="project-selector">
+            <div class="selector-label">Proyecto seleccionado:</div>
+            <div class="project-dropdown">
+                <div class="project-info">
+                    <div class="project-icon">🌱</div>
+                    <div class="project-details">
+                        <div class="project-name">Huerto Comunitario La Esperanza</div>
+                        <div class="project-phase">Fase de Planificación</div>
+                    </div>
+                </div>
+                <div>▼</div>
+            </div>
+        </div>
+
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+            <!-- Overall Progress -->
+            <div class="overall-progress">
+                <div class="progress-header">
+                    <div class="progress-title">Progreso General</div>
+                    <div class="progress-percentage">60%</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill"></div>
+                </div>
+                <div class="timeline-meta">
+                    <span>Inicio: 15 Jun 2025</span>
+                    <span>Est. Finalización: 30 Oct 2025</span>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <!-- Step 1: Completed -->
+                <div class="timeline-step">
+                    <div class="step-indicator completed">✓</div>
+                    <div class="step-card completed">
+                        <div class="step-header">
+                            <div>
+                                <div class="step-title">Identificación</div>
+                                <div class="step-phase">Fase 1</div>
+                            </div>
+                            <div class="step-status status-completed">Completado</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <div class="task-checkbox checked">✓</div>
+                                    <span>Diagnóstico de necesidades</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox checked">✓</div>
+                                    <span>Análisis FODA comunitario</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox checked">✓</div>
+                                    <span>Validación con vecinos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-meta">
+                            <div class="responsible">👤 María González</div>
+                            <div>📅 Completado: 30 Jun</div>
+                        </div>
+                        <div class="step-actions">
+                            <button class="action-btn btn-secondary">📄 Ver Informe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Active -->
+                <div class="timeline-step">
+                    <div class="step-indicator active">2</div>
+                    <div class="step-card active">
+                        <div class="step-header">
+                            <div>
+                                <div class="step-title">Planificación</div>
+                                <div class="step-phase">Fase 2</div>
+                            </div>
+                            <div class="step-status status-active">En Progreso</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <div class="task-checkbox checked">✓</div>
+                                    <span>Diseño del huerto</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Solicitud de permisos</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Presupuesto detallado</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-meta">
+                            <div class="responsible">👤 Carlos Silva</div>
+                            <div>📅 Vence: 25 Jul</div>
+                        </div>
+                        <div class="step-actions">
+                            <button class="action-btn btn-primary">✏️ Actualizar</button>
+                            <button class="action-btn btn-upload">📎 Subir Evidencia</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Pending -->
+                <div class="timeline-step">
+                    <div class="step-indicator pending">3</div>
+                    <div class="step-card pending">
+                        <div class="step-header">
+                            <div>
+                                <div class="step-title">Ejecución</div>
+                                <div class="step-phase">Fase 3</div>
+                            </div>
+                            <div class="step-status status-pending">Pendiente</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Preparación del terreno</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Instalación de sistemas</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Siembra inicial</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-meta">
+                            <div class="responsible">👤 Equipo completo</div>
+                            <div>📅 Inicio previsto: 01 Ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Pending -->
+                <div class="timeline-step">
+                    <div class="step-indicator pending">4</div>
+                    <div class="step-card pending">
+                        <div class="step-header">
+                            <div>
+                                <div class="step-title">Monitoreo</div>
+                                <div class="step-phase">Fase 4</div>
+                            </div>
+                            <div class="step-status status-pending">Pendiente</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Seguimiento semanal</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Evaluación de resultados</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-meta">
+                            <div class="responsible">👤 Ana Pérez</div>
+                            <div>📅 Sep - Oct 2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Pending -->
+                <div class="timeline-step">
+                    <div class="step-indicator pending">5</div>
+                    <div class="step-card pending">
+                        <div class="step-header">
+                            <div>
+                                <div class="step-title">Cierre</div>
+                                <div class="step-phase">Fase 5</div>
+                            </div>
+                            <div class="step-status status-pending">Pendiente</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Informe final</span>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-checkbox">⏱️</div>
+                                    <span>Celebración comunitaria</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-meta">
+                            <div class="responsible">👤 María González</div>
+                            <div>📅 30 Oct 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="ocp-inicia-proyecto.html" class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Nuevo Proyecto</div>
+            </a>
+            <a href="desafios-del-pueblo-module.html" class="nav-item">
+                <div class="nav-icon">🎯</div>
+                <div class="nav-label">Desafíos</div>
+            </a>
+            <a href="ocp-antenas-comunitarias.html" class="nav-item">
+                <div class="nav-icon">📡</div>
+                <div class="nav-label">Antenas</div>
+            </a>
+            <a href="ocp-puente-datos.html" class="nav-item">
+                <div class="nav-icon">🔗</div>
+                <div class="nav-label">Datos</div>
+            </a>
+            <div class="nav-item active">
+                <div class="nav-icon">📋</div>
+                <div class="nav-label">Ruta</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

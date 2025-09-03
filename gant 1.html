@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Gantt - OCP Fase 2  (Implementación y Validación del MVP)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .gantt-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        .gantt-chart {
+            display: grid;
+            grid-template-columns: 300px repeat(36, 25px); /* Ajustado para 36 semanas (3 trimestres) */
+            gap: 5px;
+            font-size: 12px;
+            min-width: 1200px; /* Ajustado para el nuevo ancho */
+        }
+        .gantt-header, .gantt-row {
+            display: contents;
+        }
+        .gantt-header-cell, .gantt-task-cell {
+            padding: 5px;
+            text-align: center;
+        }
+        .gantt-header-cell {
+            font-weight: bold;
+            background-color: #eee;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .gantt-month {
+            grid-column: span 12;
+            background-color: #d1e7dd;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            font-size: 10px;
+            padding: 2px;
+            margin: 2px;
+            font-weight: bold;
+        }
+        .gantt-quarter-label {
+            grid-column: span 12;
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding: 5px 0;
+        }
+        .gantt-task-name {
+            grid-column: 1;
+            font-weight: 500;
+            text-align: left;
+            padding-right: 10px;
+            white-space: normal; /* Cambiado de nowrap a normal para permitir saltos de línea */
+            line-height: 1.3; /* Mejor espaciado entre líneas */
+            min-height: 20px; /* Altura mínima para acomodar múltiples líneas */
+            display: flex;
+            align-items: center;
+        }
+        .gantt-task-name.subtask {
+            padding-left: 20px; /* Identación para subtareas */
+            font-size: 11px; /* Tamaño ligeramente menor para subtareas */
+            color: #666; /* Color más suave para subtareas */
+        }
+        .gantt-bar {
+            height: 15px;
+            background-color: #007bff;
+            border-radius: 4px;
+            grid-column: span var(--weeks);
+            margin: 2px 0;
+            position: relative;
+        }
+        .gantt-bar-secondary {
+            background-color: #6c757d;
+        }
+        .gantt-bar-milestone {
+            background-color: #28a745;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .gantt-row:nth-child(even) .gantt-task-name {
+            background-color: #f2f2f2;
+        }
+        .gantt-legend {
+            margin-top: 20px;
+            font-size: 12px;
+            display: flex;
+            gap: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gantt-container">
+    <div class="gantt-chart">
+        <div class="gantt-task-name">Tareas / Hitos</div>
+        <div class="gantt-quarter-label" style="grid-column: 2 / span 12;">Q3 2025</div>
+        <div class="gantt-quarter-label" style="grid-column: 14 / span 12;">Q4 2025</div>
+        <div class="gantt-quarter-label" style="grid-column: 26 / span 12;">Q1 2026</div>
+        <div class="gantt-header">
+            <div class="gantt-header-cell" style="grid-column: 1;"></div>
+            <div class="gantt-month" style="grid-column: 2 / span 4;">Julio</div>
+            <div class="gantt-month" style="grid-column: 6 / span 4;">Agosto</div>
+            <div class="gantt-month" style="grid-column: 10 / span 4;">Septiembre</div>
+            <div class="gantt-month" style="grid-column: 14 / span 4;">Octubre</div>
+            <div class="gantt-month" style="grid-column: 18 / span 4;">Noviembre</div>
+            <div class="gantt-month" style="grid-column: 22 / span 4;">Diciembre</div>
+            <div class="gantt-month" style="grid-column: 26 / span 4;">Enero</div>
+            <div class="gantt-month" style="grid-column: 30 / span 4;">Febrero</div>
+            <div class="gantt-month" style="grid-column: 34 / span 4;">Marzo</div>
+        </div>
+
+        <div class="gantt-row">
+            <div class="gantt-task-name">**Q3 2025: Diseño y Prototipado del MVP y Diagnóstico Inicial**</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 12; --weeks: 12;"></div>
+        </div>
+
+        <div class="gantt-row">
+            <div class="gantt-task-name">Hito: Bases Tecnológicas y Metodológicas del MVP Establecidas</div>
+            <div class="gantt-bar gantt-bar-milestone" style="grid-column: 9;"></div>
+        </div>
+        
+        <!-- Tareas que se ejecutan en paralelo desde el inicio (semanas 1-4) -->
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Arquitectura Backend (Laravel) - 4 semanas</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 4; --weeks: 4;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Diseño Frontend y PWA (Alpine.js/TS) - 6 semanas</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 6; --weeks: 6;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Módulo Diagnóstico Territorial (FODA) - MVP - 6 semanas</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 6; --weeks: 6;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Integración de IA Local (OpenAI) - 3 semanas</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 3; --weeks: 3;"></div>
+        </div>
+        
+        <!-- Tareas que empiezan después de las primeras 4 semanas -->
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Módulo Perfilado de Habitantes y Talentos - 4 semanas</div>
+            <div class="gantt-bar" style="grid-column: 6 / span 4; --weeks: 4;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Módulo Gamificación Simbólica - 4 semanas</div>
+            <div class="gantt-bar" style="grid-column: 6 / span 4; --weeks: 4;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Funcionalidad Offline/Intermitente - 4 semanas</div>
+            <div class="gantt-bar" style="grid-column: 6 / span 4; --weeks: 4;"></div>
+        </div>
+        
+        <!-- Tareas No-Tech que se ejecutan en paralelo -->
+        <div class="gantt-row">
+            <div class="gantt-task-name">Recopilación y Análisis de datos (No-Tech) - 4 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 2 / span 4; --weeks: 4;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Identificación Comunidad Piloto (No-Tech) - 8 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 2 / span 8; --weeks: 8;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Contacto con comunidad piloto (No-Tech) - 4 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 10 / span 4; --weeks: 4;"></div>
+        </div>
+        
+        <div class="gantt-row">
+            <div class="gantt-task-name">**Q4 2025 - Q1 2026: Implementación Piloto y Recopilación de Datos**</div>
+            <div class="gantt-bar" style="grid-column: 14 / span 24; --weeks: 24;"></div>
+        </div>
+        
+        <div class="gantt-row">
+            <div class="gantt-task-name">Hito: MVP Desplegado en Comunidad Piloto y Datos Iniciales Recopilados</div>
+            <div class="gantt-bar gantt-bar-milestone" style="grid-column: 14;"></div>
+        </div>
+        
+        <!-- Tareas Técnicas del Q4-Q1 -->
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Despliegue y Pruebas (Técnico) - 4 semanas</div>
+            <div class="gantt-bar" style="grid-column: 14 / span 4; --weeks: 4;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Ajuste del Sistema de Gamificación (Técnico) - 6 semanas</div>
+            <div class="gantt-bar" style="grid-column: 16 / span 6; --weeks: 6;"></div>
+        </div>
+        
+        <!-- Tareas No-Técnicas del Q4-Q1 -->
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Recopilación de Feedback (No-Técnico) - 10 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 18 / span 10; --weeks: 10;"></div>
+        </div>
+        
+        <!-- Tareas de Capacitación y Acompañamiento -->
+        <div class="gantt-row">
+            <div class="gantt-task-name">Capacitación en Comunidad (No-Tech) - 4 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 16 / span 4; --weeks: 4;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Acompañamiento Intensivo (No-Tech) - 8 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 18 / span 8; --weeks: 8;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Inicio de Alianzas Estratégicas (No-Tech) - 8 semanas</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 14 / span 8; --weeks: 8;"></div>
+        </div>
+
+    </div>
+    <div class="gantt-legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #007bff;"></div>
+            <span>Tareas Técnicas</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #6c757d;"></div>
+            <span>Tareas No-Técnicas</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #28a745; width: 10px; height: 10px; border-radius: 50%;"></div>
+            <span>Hitos</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background-color: #e7f3ff; border-left: 4px solid #007bff; border-radius: 4px;">
+        <h4 style="margin: 0 0 10px 0; color: #0056b3;">📋 Justificación de la Planificación Q3 2025</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5;">
+            <strong>Superposición de Tareas Técnicas:</strong> El trabajo del equipo se divide para maximizar la eficiencia, permitiendo que las tareas de backend y frontend se desarrollen simultáneamente. Las tareas como Arquitectura Backend, Diseño Frontend y Módulo FODA se ejecutan en paralelo desde el inicio, ya que son independientes entre sí.
+        </p>
+        <p style="margin: 8px 0 0 0; font-size: 13px; line-height: 1.5;">
+            <strong>Secuencia Lógica:</strong> Las tareas que requieren la base del backend (Perfilado, Gamificación, Offline) empiezan en la semana 6, después de que se establezcan las bases tecnológicas. Esto optimiza el uso del equipo y reduce el tiempo total del proyecto.
+        </p>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+        <h4 style="margin: 0 0 10px 0; color: #856404;">📋 Justificación de la Planificación Q4 2025 - Q1 2026</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5;">
+            <strong>Cambio de Enfoque:</strong> El foco cambia del desarrollo puro a la implementación, el testeo en entorno real y la recopilación de feedback. Las tareas no técnicas ganan relevancia y se realizan en conjunto con la comunidad piloto.
+        </p>
+        <p style="margin: 8px 0 0 0; font-size: 13px; line-height: 1.5;">
+            <strong>Solapamiento de Tareas:</strong> Las tareas técnicas y no técnicas se solapan para asegurar que la retroalimentación se integre en el producto de manera continua. El tiempo de despliegue es corto, pero las fases de prueba, capacitación y recopilación de feedback requieren períodos más largos, ya que dependen del comportamiento de usuarios reales y la logística en terreno.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

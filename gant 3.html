@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Gantt - OCP Fase 3: Expansión y Escalabilidad</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .gantt-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        .gantt-chart {
+            display: grid;
+            grid-template-columns: 300px repeat(24, 25px); /* Ajustado para 24 semanas (2 trimestres) */
+            gap: 5px;
+            font-size: 12px;
+            min-width: 900px; /* Ajustado para el nuevo ancho */
+        }
+        .gantt-header, .gantt-row {
+            display: contents;
+        }
+        .gantt-header-cell, .gantt-task-cell {
+            padding: 5px;
+            text-align: center;
+        }
+        .gantt-header-cell {
+            font-weight: bold;
+            background-color: #eee;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .gantt-month {
+            grid-column: span 12;
+            background-color: #d1e7dd;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            font-size: 10px;
+            padding: 2px;
+            margin: 2px;
+            font-weight: bold;
+        }
+        .gantt-quarter-label {
+            grid-column: span 12;
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding: 5px 0;
+        }
+        .gantt-task-name {
+            grid-column: 1;
+            font-weight: 500;
+            text-align: left;
+            padding-right: 10px;
+            white-space: normal; /* Cambiado de nowrap a normal para permitir saltos de línea */
+            line-height: 1.3; /* Mejor espaciado entre líneas */
+            min-height: 20px; /* Altura mínima para acomodar múltiples líneas */
+            display: flex;
+            align-items: center;
+        }
+        .gantt-task-name.subtask {
+            padding-left: 20px; /* Identación para subtareas */
+            font-size: 11px; /* Tamaño ligeramente menor para subtareas */
+            color: #666; /* Color más suave para subtareas */
+        }
+        .gantt-bar {
+            height: 15px;
+            background-color: #007bff;
+            border-radius: 4px;
+            grid-column: span var(--weeks);
+            margin: 2px 0;
+            position: relative;
+        }
+        .gantt-bar-secondary {
+            background-color: #6c757d;
+        }
+        .gantt-bar-milestone {
+            background-color: #28a745;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .gantt-row:nth-child(even) .gantt-task-name {
+            background-color: #f2f2f2;
+        }
+        .gantt-legend {
+            margin-top: 20px;
+            font-size: 12px;
+            display: flex;
+            gap: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gantt-container">
+    <div class="gantt-chart">
+        <div class="gantt-task-name">Tareas / Hitos</div>
+        <div class="gantt-quarter-label" style="grid-column: 2 / span 12;">Año 2 (2027)</div>
+        <div class="gantt-quarter-label" style="grid-column: 14 / span 12;">Año 3 (2028)</div>
+        <div class="gantt-header">
+            <div class="gantt-header-cell" style="grid-column: 1;"></div>
+            <div class="gantt-month" style="grid-column: 2 / span 4;">Enero</div>
+            <div class="gantt-month" style="grid-column: 6 / span 4;">Febrero</div>
+            <div class="gantt-month" style="grid-column: 10 / span 4;">Marzo</div>
+            <div class="gantt-month" style="grid-column: 14 / span 4;">Abril</div>
+            <div class="gantt-month" style="grid-column: 18 / span 4;">Mayo</div>
+            <div class="gantt-month" style="grid-column: 22 / span 4;">Junio</div>
+        </div>
+
+        <div class="gantt-row">
+            <div class="gantt-task-name">**Fase 3: Expansión y Escalabilidad (Año 2 y Año 3 del Roadmap a 5 Años)**</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 24; --weeks: 24;"></div>
+        </div>
+
+        <!-- AÑO 2 (2027): Consolidación del Modelo y Prueba de Concepto Extendida -->
+        <div class="gantt-row">
+            <div class="gantt-task-name">**Año 2 (2027): Consolidación del Modelo y Prueba de Concepto Extendida**</div>
+            <div class="gantt-bar" style="grid-column: 2 / span 12; --weeks: 12;"></div>
+        </div>
+
+        <div class="gantt-row">
+            <div class="gantt-task-name">Hito: Operación Consolidada y Expansión a 2-3 Comunidades Adicionales</div>
+            <div class="gantt-bar gantt-bar-milestone" style="grid-column: 12;"></div>
+        </div>
+        
+        <!-- Tareas del Año 2 -->
+        <div class="gantt-row">
+            <div class="gantt-task-name">Formalización de Convenios de Servicio y Soporte (No-Técnico) - 6 meses</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 2 / span 6; --weeks: 6;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Búsqueda de Nuevas Licitaciones y Alianzas (No-Técnico) - 12 meses</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 2 / span 12; --weeks: 12;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Desarrollo de Funcionalidades Basadas en Resultados - 6 meses</div>
+            <div class="gantt-bar" style="grid-column: 6 / span 6; --weeks: 6;"></div>
+        </div>
+        
+        <!-- AÑO 3 (2028): Sostenibilidad y Crecimiento Sostenido -->
+        <div class="gantt-row">
+            <div class="gantt-task-name">**Año 3 (2028): Sostenibilidad y Crecimiento Sostenido**</div>
+            <div class="gantt-bar" style="grid-column: 14 / span 12; --weeks: 12;"></div>
+        </div>
+        
+        <div class="gantt-row">
+            <div class="gantt-task-name">Hito: Sostenibilidad Financiera a Largo Plazo y Expansión a Múltiples Comunidades</div>
+            <div class="gantt-bar gantt-bar-milestone" style="grid-column: 24;"></div>
+        </div>
+        
+        <!-- Tareas del Año 3 -->
+        <div class="gantt-row">
+            <div class="gantt-task-name subtask">↳ Escalado de la Infraestructura Tecnológica - 6 meses</div>
+            <div class="gantt-bar" style="grid-column: 14 / span 6; --weeks: 6;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Implementación de Nuevos Pilotos - 12 meses</div>
+            <div class="gantt-bar" style="grid-column: 14 / span 12; --weeks: 12;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Establecimiento de Alianzas Permanentes y Flujo de Ingresos Constante (No-Técnico) - 12 meses</div>
+            <div class="gantt-bar gantt-bar-secondary" style="grid-column: 14 / span 12; --weeks: 12;"></div>
+        </div>
+        <div class="gantt-row">
+            <div class="gantt-task-name">Publicación de Datasets Anonimizados para Investigación (Técnico/No-Técnico) - 4 meses</div>
+            <div class="gantt-bar" style="grid-column: 20 / span 4; --weeks: 4;"></div>
+        </div>
+    </div>
+    <div class="gantt-legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #007bff;"></div>
+            <span>Tareas Técnicas</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #6c757d;"></div>
+            <span>Tareas No-Técnicas</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #28a745; width: 10px; height: 10px; border-radius: 50%;"></div>
+            <span>Hitos</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background-color: #e7f3ff; border-left: 4px solid #007bff; border-radius: 4px;">
+        <h4 style="margin: 0 0 10px 0; color: #0056b3;">📋 Justificación de la Planificación Fase 3: Expansión y Escalabilidad</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5;">
+            <strong>Cambio de Enfoque:</strong> Esta fase representa la consolidación del proyecto y el inicio de su crecimiento a mayor escala. El enfoque se desplaza del desarrollo intensivo a la optimización de los procesos, la automatización y la sostenibilidad financiera y operativa.
+        </p>
+        <p style="margin: 8px 0 0 0; font-size: 13px; line-height: 1.5;">
+            <strong>Evolución del Equipo:</strong> Se asume que en esta etapa el equipo técnico se ha expandido o que los desarrolladores actuales han mejorado sus habilidades, permitiendo abordar tareas más complejas de escalabilidad.
+        </p>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background-color: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 4px;">
+        <h4 style="margin: 0 0 10px 0; color: #0c5460;">🎯 Objetivos por Año</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5;">
+            <strong>Año 2 (2027):</strong> Validar la replicabilidad del modelo en al menos 2-3 comunidades adicionales, formalizando las alianzas y las fuentes de ingresos. El proceso de expansión es significativamente más largo que el de un solo piloto.
+        </p>
+        <p style="margin: 8px 0 0 0; font-size: 13px; line-height: 1.5;">
+            <strong>Año 3 (2028):</strong> Optimización y escalabilidad de la infraestructura y los procesos. La plataforma busca no solo crecer en número de comunidades, sino también asegurar su viabilidad a largo plazo.
+        </p>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background-color: #f8d7da; border-left: 4px solid #dc3545; border-radius: 4px;">
+        <h4 style="margin: 0 0 10px 0; color: #721c24;">⚠️ Consideraciones Importantes</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5;">
+            <strong>Procesos Continuos:</strong> La formalización de alianzas y la búsqueda de financiamiento son actividades que requieren múltiples reuniones y negociaciones. El establecimiento de un flujo de ingresos constante es una meta a largo plazo.
+        </p>
+        <p style="margin: 8px 0 0 0; font-size: 13px; line-height: 1.5;">
+            <strong>Escalado Tecnológico:</strong> El escalado de la infraestructura es un trabajo técnico que requiere una planificación cuidadosa para evitar interrupciones en el servicio.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
