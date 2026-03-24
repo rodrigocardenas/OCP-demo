@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Model Canvas - OCP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .canvas-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .canvas-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .canvas-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .canvas-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 15px;
+            height: auto;
+        }
+
+        .canvas-section {
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: #667eea;
+        }
+
+        .canvas-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section-content li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .section-content li::before {
+            content: '▪';
+            color: #667eea;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .section-content strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Grid positioning */
+        .key-partners { grid-column: 1; grid-row: 1; }
+        .key-activities { grid-column: 2; grid-row: 1; }
+        .value-propositions { grid-column: 3; grid-row: 1 / 3; background: linear-gradient(145deg, #fff3cd, #f8d7da); }
+        .customer-relationships { grid-column: 4; grid-row: 1; }
+        .customer-segments { grid-column: 5; grid-row: 1; }
+        .key-resources { grid-column: 2; grid-row: 2; }
+        .channels { grid-column: 4; grid-row: 2; }
+        .cost-structure { grid-column: 1 / 3; grid-row: 3; }
+        .revenue-streams { grid-column: 4 / 6; grid-row: 3; }
+
+        .value-propositions .section-title {
+            color: #721c24;
+            font-size: 1.3rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1200px) {
+            .canvas-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: auto auto auto auto auto;
+            }
+            
+            .value-propositions { grid-column: 2; grid-row: 1 / 3; }
+            .key-partners { grid-column: 1; grid-row: 1; }
+            .key-activities { grid-column: 1; grid-row: 2; }
+            .key-resources { grid-column: 1; grid-row: 3; }
+            .customer-relationships { grid-column: 3; grid-row: 1; }
+            .customer-segments { grid-column: 3; grid-row: 2; }
+            .channels { grid-column: 3; grid-row: 3; }
+            .cost-structure { grid-column: 1 / 3; grid-row: 4; }
+            .revenue-streams { grid-column: 2 / 4; grid-row: 5; }
+        }
+
+        @media (max-width: 768px) {
+            .canvas-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(9, auto);
+            }
+            
+            .canvas-section { grid-column: 1; }
+            .key-partners { grid-row: 1; }
+            .key-activities { grid-row: 2; }
+            .key-resources { grid-row: 3; }
+            .value-propositions { grid-row: 4; }
+            .customer-relationships { grid-row: 5; }
+            .customer-segments { grid-row: 6; }
+            .channels { grid-row: 7; }
+            .cost-structure { grid-row: 8; }
+            .revenue-streams { grid-row: 9; }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <div class="canvas-header">
+            <h1 class="canvas-title">Business Model Canvas</h1>
+            <p class="canvas-subtitle">OCP - Open Community Platform (Proyecto Social)</p>
+        </div>
+
+        <div class="canvas-grid">
+            <div class="canvas-section key-partners">
+                <h3 class="section-title">Socios Clave</h3>
+                <div class="section-content">
+                    <p><strong>Gobiernos locales</strong> (municipalidades y gobernaciones), <strong>ONGs</strong> especializadas en desarrollo rural, <strong>asociaciones rurales</strong> y organizaciones comunitarias, <strong>comunidad de desarrolladores</strong> (código abierto).</p>
+                </div>
+            </div>
+
+            <div class="canvas-section key-activities">
+                <h3 class="section-title">Actividades Clave</h3>
+                <div class="section-content">
+                    <p><strong>Desarrollo</strong> y mantenimiento de la plataforma, <strong>gestión de alianzas</strong> estratégicas, <strong>fomento</strong> de la participación comunitaria, <strong>capacitaciones</strong> y talleres presenciales, <strong>I+D</strong> en IA y nuevas funcionalidades.</p>
+                </div>
+            </div>
+
+            <div class="canvas-section key-resources">
+                <h3 class="section-title">Recursos Clave</h3>
+                <div class="section-content">
+                    <p><strong>Plataforma tecnológica</strong> de código abierto, <strong>equipo humano</strong> (desarrolladores, UX/UI, gestores sociales), <strong>red de alianzas</strong> institucionales, <strong>conocimiento local</strong> y datos territoriales, <strong>infraestructura</strong> (servidores, APIs, bases de datos).</p>
+                </div>
+            </div>
+
+            <div class="canvas-section value-propositions">
+                <h3 class="section-title">Propuesta de Valor</h3>
+                <div class="section-content">
+                    <p><strong>Para Instituciones Públicas:</strong> Mejora de la <span class="highlight">eficiencia</span> en gestión de fondos públicos, <span class="highlight">medición precisa</span> del impacto social, fomento de la <span class="highlight">transparencia</span> y rendición de cuentas.</p>
+                    
+                    <p><strong>Para Habitantes Rurales:</strong> <span class="highlight">Empoderamiento</span> y participación activa, herramienta accesible para el <span class="highlight">desarrollo económico/social</span>, conversión en <span class="highlight">agentes de cambio</span>.</p>
+                </div>
+            </div>
+
+            <div class="canvas-section customer-relationships">
+                <h3 class="section-title">Relación con Clientes</h3>
+                <div class="section-content">
+                    <p><strong>Participación comunitaria</strong> activa, <strong>co-creación</strong> y apropiación comunitaria, <strong>soporte y capacitación</strong> continua, <strong>acompañamiento</strong> en implementación.</p>
+                </div>
+            </div>
+
+            <div class="canvas-section customer-segments">
+                <h3 class="section-title">Segmentos de Cliente</h3>
+                <div class="section-content">
+                    <p><strong>Cliente Principal (Monetizable):</strong> <strong>Municipalidades</strong>, <strong>gobernaciones</strong>, <strong>organismos públicos</strong> de desarrollo.</p>
+                    
+                    <p><strong>Usuario Final (Beneficiario):</strong> <strong>Habitantes</strong> de comunidades rurales, <strong>organizaciones</strong> comunitarias locales.</p>
+                </div>
+            </div>
+
+            <div class="canvas-section channels">
+                <h3 class="section-title">Canales</h3>
+                <div class="section-content">
+                    <p><strong>Plataforma web</strong> y aplicación móvil, <strong>funcionalidad offline</strong> para zonas sin conexión, <strong>alianzas</strong> con gobiernos locales, <strong>talleres y capacitaciones</strong> presenciales, <strong>redes de promotores</strong> locales.</p>
+                </div>
+            </div>
+
+            <div class="canvas-section cost-structure">
+                <h3 class="section-title">Estructura de Costos</h3>
+                <div class="section-content">
+                    <p><strong>Desarrollo y mantenimiento tecnológico</strong>, <strong>salarios del equipo central</strong>, <strong>implementación en terreno</strong> (viajes, capacitaciones), <strong>marketing social y difusión</strong>, <strong>inversión en I+D</strong>.</p>
+                </div>
+            </div>
+
+            <div class="canvas-section revenue-streams">
+                <h3 class="section-title">Fuentes de Ingresos</h3>
+                <div class="section-content">
+                    <p><strong>Subvenciones</strong> gubernamentales y públicas, <strong>alianzas con ONGs</strong> y organizaciones internacionales, <strong>donaciones</strong> de fundaciones y particulares, <strong>servicios de asesoría B2B</strong>, <strong>consultoría</strong> en implementación.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
