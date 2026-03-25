@@ -687,6 +687,131 @@
             margin-bottom: 40px;
         }
 
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--color-text-dark) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gallery-section p {
+            text-align: center;
+            color: var(--color-text-light);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .gallery-image {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            display: block;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .gallery-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Preview Section */
+        .preview-section {
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .preview-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .preview-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--color-text-dark) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-section p {
+            text-align: center;
+            color: var(--color-text-light);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .preview-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+            border: 1px solid var(--color-border);
+        }
+
+        .preview-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .gallery-section, .preview-section {
+                padding: 50px 20px;
+            }
+
+            .gallery-section h2, .preview-section h2 {
+                font-size: 2rem;
+            }
+
+            .preview-iframe-container {
+                height: 600px;
+            }
+        }
+
         /* Contact Section */
         .contact-section {
             padding: 40px 30px;
@@ -1172,6 +1297,26 @@
                 </ul>
                 <span class="module-link">Próximamente →</span>
             </a>
+        </div>
+    </section>
+
+    <!-- Gallery Section - Puente de Datos -->
+    <section class="gallery-section">
+        <div class="gallery-content">
+            <h2>Puente de Datos</h2>
+            <p>Visualiza nuestro dashboard de inteligencia territorial en acción</p>
+            <img src="assets/img/puente de datos.png" alt="Dashboard Puente de Datos" class="gallery-image">
+        </div>
+    </section>
+
+    <!-- Preview Section - Ruta del Cambio -->
+    <section class="preview-section">
+        <div class="preview-content">
+            <h2>Ruta del Cambio</h2>
+            <p>Explora el módulo interactivo de planificación de proyectos</p>
+            <div class="preview-iframe-container">
+                <iframe src="ruta-del-cambio-module.html" title="Ruta del Cambio Module Preview"></iframe>
+            </div>
         </div>
     </section>
 
