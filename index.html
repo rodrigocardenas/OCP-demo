@@ -719,21 +719,67 @@
             font-size: 1.1rem;
         }
 
-        .gallery-image {
+        .gallery-image-wrapper {
+            position: relative;
             width: 100%;
             max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .gallery-image {
+            width: 100%;
+            display: block;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
             border: 1px solid var(--color-border);
             transition: var(--transition);
-            display: block;
-            margin: 0 auto;
-            overflow: hidden;
         }
 
         .gallery-image:hover {
             transform: translateY(-5px);
             box-shadow: 0 30px 80px rgba(74, 144, 226, 0.4);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 20, 25, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .gallery-image-wrapper:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-button {
+            padding: 14px 40px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+        }
+
+        .gallery-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.5);
         }
 
         /* Preview Section */
@@ -1305,7 +1351,12 @@
         <div class="gallery-content">
             <h2>Puente de Datos</h2>
             <p>Visualiza nuestro dashboard de inteligencia territorial en acción</p>
-            <img src="assets/img/puente de datos.png" alt="Dashboard Puente de Datos" class="gallery-image">
+            <div class="gallery-image-wrapper">
+                <img src="assets/img/puente de datos.png" alt="Dashboard Puente de Datos" class="gallery-image">
+                <div class="gallery-overlay">
+                    <a href="ocp-puente-datos.html" class="gallery-button">Ver versión interactiva →</a>
+                </div>
+            </div>
         </div>
     </section>
 
