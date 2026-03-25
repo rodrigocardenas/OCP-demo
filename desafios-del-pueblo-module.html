@@ -594,31 +594,41 @@
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 24px;
             color: var(--color-text-light);
+            min-height: calc(100vh - 380px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
         }
 
         .empty-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.5;
+            font-size: 56px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+            transition: var(--transition);
         }
 
         .empty-title {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 800;
             margin-bottom: 8px;
             color: var(--color-text-dark);
+            letter-spacing: -0.3px;
         }
 
         .empty-description {
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
             color: var(--color-text-light);
+            max-width: 280px;
+            letter-spacing: 0.2px;
         }
 
         /* Responsive */
-        @media (max-width: 380px) {
+        @media (max-width: 480px) {
             .container {
                 max-width: 100%;
             }
@@ -626,30 +636,209 @@
             .header {
                 padding: 20px 16px 12px;
             }
+
+            .module-title {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 18px 14px 10px;
+            }
             
             .module-title {
-                font-size: 22px;
+                font-size: 20px;
+                font-weight: 700;
+                gap: 6px;
+            }
+            
+            .back-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+                margin-bottom: 8px;
             }
             
             .stats-bar {
-                padding: 16px 12px;
-                gap: 8px;
+                padding: 14px 12px;
+                gap: 6px;
             }
 
             .stat-item {
-                padding: 10px;
+                padding: 10px 8px;
+                border-radius: 10px;
+                gap: 4px;
             }
 
             .stat-number {
-                font-size: 20px;
+                font-size: 18px;
+            }
+            
+            .stat-label {
+                font-size: 9px;
+                letter-spacing: 0.6px;
+            }
+
+            .filter-tabs {
+                padding: 8px 12px 0;
+            }
+
+            .tab {
+                padding: 8px 12px;
+                font-size: 12px;
+                border-radius: 10px 10px 0 0;
             }
             
             .challenges-container {
-                padding: 15px;
+                padding: 12px;
+                padding-bottom: 100px;
+                max-height: calc(100vh - 250px);
             }
-            
+
+            .featured-challenge {
+                padding: 16px;
+                border-radius: 14px;
+                margin-bottom: 16px;
+            }
+
+            .featured-badge {
+                font-size: 10px;
+                padding: 6px 10px;
+                margin-bottom: 10px;
+            }
+
             .challenge-card {
-                padding: 15px;
+                padding: 14px;
+                border-radius: 14px;
+            }
+
+            .challenge-header {
+                gap: 4px;
+            }
+
+            .challenge-category,
+            .challenge-status {
+                font-size: 10px;
+                padding: 4px 8px;
+                border-radius: 12px;
+            }
+
+            .challenge-title {
+                font-size: 15px;
+                font-weight: 700;
+            }
+
+            .challenge-description {
+                font-size: 13px;
+                line-height: 1.4;
+                margin-bottom: 12px;
+            }
+
+            .challenge-meta {
+                font-size: 11px;
+                margin-bottom: 12px;
+                gap: 8px;
+            }
+
+            .meta-left {
+                gap: 10px;
+            }
+
+            .challenge-actions {
+                padding-top: 10px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .vote-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .vote-count {
+                font-size: 13px;
+            }
+
+            .action-btn {
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+
+            .fab {
+                width: 54px;
+                height: 54px;
+                font-size: 22px;
+                bottom: 85px;
+                right: 16px;
+            }
+
+            .bottom-nav {
+                padding: 10px 0;
+            }
+
+            .nav-item {
+                padding: 6px 12px;
+                gap: 3px;
+                font-size: 10px;
+            }
+
+            .nav-icon {
+                font-size: 18px;
+            }
+
+            .empty-state {
+                padding: 60px 16px;
+                min-height: calc(100vh - 350px);
+            }
+
+            .empty-icon {
+                font-size: 48px;
+                margin-bottom: 10px;
+            }
+
+            .empty-title {
+                font-size: 16px;
+            }
+
+            .empty-description {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .stats-bar {
+                padding: 12px 10px;
+                gap: 4px;
+            }
+
+            .stat-item {
+                padding: 8px 6px;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .stat-label {
+                font-size: 8px;
+            }
+
+            .challenges-container {
+                padding: 10px;
+            }
+
+            .challenge-card {
+                padding: 12px;
+                margin-bottom: 12px;
             }
         }
 
@@ -658,14 +847,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            padding: 60px 20px;
+            min-height: calc(100vh - 300px);
         }
 
         .spinner {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border: 3px solid var(--color-border);
             border-top: 3px solid var(--color-primary);
+            border-right: 3px solid var(--color-secondary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
