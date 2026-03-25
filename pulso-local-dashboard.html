@@ -518,13 +518,429 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 380px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 768px) {
+            .container {
+                padding-bottom: 80px;
             }
             
+            .header {
+                padding: 20px 16px 28px;
+            }
+            
+            .community-name {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
             .container {
                 max-width: 100%;
+                padding-bottom: 80px;
+            }
+
+            .header {
+                padding: 18px 14px 24px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .location {
+                font-size: 11px;
+                align-self: flex-start;
+            }
+
+            .welcome {
+                font-size: 13px;
+                margin-bottom: 4px;
+            }
+
+            .community-name {
+                font-size: 20px;
+            }
+
+            .alert-banner {
+                margin: 16px 12px 20px;
+                padding: 12px;
+            }
+
+            .alert-icon {
+                font-size: 20px;
+            }
+
+            .alert-title {
+                font-size: 13px;
+            }
+
+            .alert-text {
+                font-size: 11px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 16px 12px;
+            }
+
+            .card {
+                padding: 16px 12px;
+            }
+
+            .card-number {
+                font-size: 26px;
+            }
+
+            .card-label {
+                font-size: 11px;
+            }
+
+            .wide-card {
+                margin: 0 12px 16px;
+                padding: 16px;
+            }
+
+            .wide-card-title {
+                font-size: 15px;
+            }
+
+            .wide-card-icon {
+                font-size: 24px;
+            }
+
+            .challenge-title {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            .challenge-votes {
+                font-size: 11px;
+            }
+
+            .challenge-status {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .progress-text {
+                font-size: 11px;
+            }
+
+            .bottom-nav {
+                padding: 12px 0 10px;
+            }
+
+            .nav-item {
+                padding: 8px 10px;
+                gap: 4px;
+            }
+
+            .nav-icon {
+                font-size: 20px;
+            }
+
+            .nav-label {
+                font-size: 9px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .header {
+                padding: 16px 12px 20px;
+            }
+
+            .location {
+                font-size: 10px;
+            }
+
+            .community-name {
+                font-size: 18px;
+                margin-bottom: 0;
+            }
+
+            .alert-banner {
+                margin: 12px 10px 16px;
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .alert-icon {
+                font-size: 18px;
+                min-width: 24px;
+            }
+
+            .alert-title {
+                font-size: 12px;
+            }
+
+            .alert-text {
+                font-size: 10px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 12px 10px;
+            }
+
+            .card {
+                padding: 14px 10px;
+                border-radius: 12px;
+            }
+
+            .card-number {
+                font-size: 24px;
+            }
+
+            .card-label {
+                font-size: 10px;
+            }
+
+            .wide-card {
+                margin: 0 10px 12px;
+                padding: 14px;
+                border-radius: 14px;
+            }
+
+            .wide-card-header {
+                margin-bottom: 12px;
+            }
+
+            .wide-card-title {
+                font-size: 14px;
+            }
+
+            .wide-card-icon {
+                font-size: 22px;
+            }
+
+            .challenge-content {
+                padding: 12px 14px;
+                border-radius: 10px;
+                border-left-width: 3px;
+            }
+
+            .challenge-title {
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+
+            .challenge-votes {
+                font-size: 10px;
+                gap: 4px;
+            }
+
+            .votes-count {
+                gap: 4px;
+            }
+
+            .challenge-status {
+                font-size: 9px;
+                padding: 4px 8px;
+            }
+
+            .participation-bar {
+                margin-top: 10px;
+            }
+
+            .progress-container {
+                height: 8px;
+                border-radius: 10px;
+            }
+
+            .progress-text {
+                font-size: 10px;
+                margin-top: 8px;
+            }
+
+            .bottom-nav {
+                padding: 10px 0 8px;
+                max-width: 100%;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+            }
+
+            .nav-item {
+                padding: 6px 8px;
+                gap: 3px;
+                border-radius: 12px;
+            }
+
+            .nav-icon {
+                font-size: 18px;
+            }
+
+            .nav-label {
+                font-size: 8px;
+                letter-spacing: 0px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .header {
+                padding: 14px 10px 18px;
+            }
+
+            .logo {
+                font-size: 16px;
+                gap: 4px;
+            }
+
+            .logo::before {
+                font-size: 18px;
+            }
+
+            .location {
+                font-size: 9px;
+                display: none;
+            }
+
+            .welcome {
+                font-size: 12px;
+            }
+
+            .community-name {
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            .alert-banner {
+                margin: 10px 8px 14px;
+                padding: 8px;
+                gap: 6px;
+                border-radius: 10px;
+            }
+
+            .alert-icon {
+                font-size: 16px;
+                min-width: 20px;
+            }
+
+            .alert-title {
+                font-size: 11px;
+                font-weight: 600;
+            }
+
+            .alert-text {
+                font-size: 9px;
+                line-height: 1.2;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 10px 8px;
+            }
+
+            .card {
+                padding: 12px 8px;
+                border-radius: 10px;
+            }
+
+            .card-number {
+                font-size: 22px;
+            }
+
+            .card-label {
+                font-size: 9px;
+            }
+
+            .wide-card {
+                margin: 0 8px 10px;
+                padding: 12px;
+                border-radius: 12px;
+            }
+
+            .wide-card-header {
+                margin-bottom: 10px;
+            }
+
+            .wide-card-title {
+                font-size: 13px;
+                font-weight: 700;
+            }
+
+            .wide-card-icon {
+                font-size: 20px;
+            }
+
+            .challenge-content {
+                padding: 10px 12px;
+                border-radius: 8px;
+                border-left-width: 3px;
+                margin-bottom: 8px;
+            }
+
+            .challenge-title {
+                font-size: 12px;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+
+            .challenge-votes {
+                font-size: 9px;
+                gap: 3px;
+            }
+
+            .votes-count {
+                gap: 3px;
+                font-size: 9px;
+            }
+
+            .challenge-status {
+                font-size: 8px;
+                padding: 3px 6px;
+                border-radius: 6px;
+            }
+
+            .participation-bar {
+                margin-top: 8px;
+            }
+
+            .progress-container {
+                height: 6px;
+                border-radius: 8px;
+            }
+
+            .progress-text {
+                font-size: 9px;
+                margin-top: 6px;
+            }
+
+            .progress-score {
+                font-size: 9px;
+            }
+
+            .bottom-nav {
+                padding: 8px 0 6px;
+                max-width: 100%;
+            }
+
+            .nav-item {
+                padding: 5px 6px;
+                gap: 2px;
+                border-radius: 10px;
+                flex: 1;
+            }
+
+            .nav-item a {
+                gap: 2px;
+            }
+
+            .nav-icon {
+                font-size: 16px;
+            }
+
+            .nav-label {
+                font-size: 7px;
+                letter-spacing: 0px;
+                line-height: 1;
+            }
+
+            .nav-item.active .nav-icon {
+                transform: scale(1.1);
             }
         }
     </style>
@@ -637,9 +1053,6 @@
                 <div class="nav-label">Ruta</div>
             </a>
         </div>
-
-        <!-- Floating Action Button -->
-        <div class="fab">➕</div>
     </div>
 </body>
 </html>
