@@ -120,24 +120,71 @@
             width: 100%;
         }
 
-        .cta-button {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 8px;
-            border: 1px solid var(--color-primary);
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
             cursor: pointer;
-            font-weight: 600;
+            color: var(--color-text-light);
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            padding: 0;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .cta-button:hover {
-            background: linear-gradient(135deg, var(--color-primary-dark) 0%, #1e4a7a 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.5);
+        .menu-toggle:hover {
+            color: var(--color-primary);
+        }
+
+        .menu-toggle.active {
+            color: var(--color-primary);
+        }
+
+        /* Mobile Menu Dropdown */
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(15, 20, 25, 0.98) 0%, rgba(26, 31, 46, 0.9) 100%);
+            border-bottom: 1px solid var(--color-border);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            padding: 20px 0;
+        }
+
+        .nav-dropdown.active {
+            display: block;
+        }
+
+        .nav-dropdown ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding: 0;
+        }
+
+        .nav-dropdown li {
+            border-bottom: 1px solid rgba(45, 55, 72, 0.5);
+        }
+
+        .nav-dropdown a {
+            display: block;
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 16px 40px;
+            transition: var(--transition);
+        }
+
+        .nav-dropdown a:hover {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--color-primary);
+            padding-left: 48px;
         }
 
         /* Hero Section */
@@ -1117,6 +1164,10 @@
                 display: none;
             }
 
+            .menu-toggle {
+                display: block;
+            }
+
             .nav-container {
                 justify-content: space-between;
             }
@@ -1190,7 +1241,15 @@
                 <li><a href="#modules">Módulos</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
-            <a href="#modules" class="cta-button">Explorar</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+        </div>
+        <div class="nav-dropdown" id="navDropdown">
+            <ul>
+                <li><a href="#about">Acerca de</a></li>
+                <li><a href="#features">Características</a></li>
+                <li><a href="#modules">Módulos</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
         </div>
     </nav>
 
@@ -1463,6 +1522,31 @@
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease-out';
             observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navDropdown = document.getElementById('navDropdown');
+
+        menuToggle.addEventListener('click', function() {
+            navDropdown.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        navDropdown.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                navDropdown.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('nav')) {
+                navDropdown.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
         });
     </script>
 </body>
