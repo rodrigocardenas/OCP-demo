@@ -689,7 +689,7 @@
 
         /* Contact Section */
         .contact-section {
-            padding: 60px 40px;
+            padding: 40px 30px;
             position: relative;
             overflow: hidden;
         }
@@ -716,10 +716,10 @@
         }
 
         .contact-section h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             background: linear-gradient(135deg, var(--color-text-dark) 0%, var(--color-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -728,20 +728,25 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
             margin-bottom: 0;
         }
 
         .contact-card {
             background: var(--color-bg-card);
             border: 1px solid var(--color-border);
-            border-radius: 16px;
-            padding: 30px 25px;
+            border-radius: 12px;
+            padding: 25px 20px;
             text-align: center;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .contact-card::before {
@@ -764,27 +769,47 @@
         }
 
         .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
+            font-size: 2rem;
+            margin-bottom: 8px;
             display: inline-block;
             position: relative;
             z-index: 2;
         }
 
         .contact-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 0;
             color: var(--color-text-dark);
             position: relative;
             z-index: 2;
+            font-weight: 700;
         }
 
         .contact-card p {
             color: var(--color-text-light);
             position: relative;
             z-index: 2;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             word-break: break-all;
+            opacity: 1;
+            max-height: 100px;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .contact-card[data-contact="email"] p,
+        .contact-card[data-contact="phone"] p {
+            opacity: 0;
+            max-height: 0;
+            margin-top: 0;
+            overflow: hidden;
+        }
+
+        .contact-card[data-contact="email"]:hover p,
+        .contact-card[data-contact="phone"]:hover p {
+            opacity: 1;
+            max-height: 100px;
+            margin-top: 8px;
         }
 
         .contact-card a {
@@ -795,7 +820,6 @@
             position: relative;
             z-index: 2;
             display: inline-block;
-            margin-top: 15px;
         }
 
         .contact-card a:hover {
@@ -1158,21 +1182,21 @@
             
             <div class="contact-grid">
                 <!-- Email Contact -->
-                <div class="contact-card">
+                <div class="contact-card" data-contact="email">
                     <div class="contact-icon">✉️</div>
                     <h3>Email</h3>
                     <p><a href="mailto:rodrigo.cardenasplaza@gmail.com">rodrigo.cardenasplaza@gmail.com</a></p>
                 </div>
 
                 <!-- Phone Contact -->
-                <div class="contact-card">
+                <div class="contact-card" data-contact="phone">
                     <div class="contact-icon">📞</div>
                     <h3>Teléfono</h3>
                     <p><a href="tel:+34673085684">+34 673 085 684</a></p>
                 </div>
 
                 <!-- LinkedIn Contact -->
-                <div class="contact-card">
+                <div class="contact-card" data-contact="linkedin">
                     <div class="contact-icon">💼</div>
                     <h3>LinkedIn</h3>
                     <p><a href="https://www.linkedin.com/in/rodrigocadplaz/" target="_blank" rel="noopener noreferrer">Conectar en LinkedIn →</a></p>
