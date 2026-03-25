@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCP - Organización Comunitaria del Pueblo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #4A90E2;
+            --color-primary-dark: #2E5C8A;
+            --color-secondary: #7C3AED;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-bg: #0F1419;
+            --color-bg-secondary: #1A1F2E;
+            --color-bg-card: #1E2639;
+            --color-bg-hover: #252E42;
+            --color-text-dark: #E8EAED;
+            --color-text-light: #A0A7B0;
+            --color-text-muted: #6B7280;
+            --color-border: #2D3748;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0A0E14 0%, #1A1F2E 25%, #2E2A3F 50%, #1A1F2E 75%, #0A0E14 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(15, 20, 25, 0.95) 0%, rgba(26, 31, 46, 0.8) 100%);
+            border-bottom: 1px solid var(--color-border);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--color-primary);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, var(--color-primary-dark) 0%, #1e4a7a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: 5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-reverse 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-30px) translateX(20px); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(40px) translateX(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--color-text-dark) 0%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--color-text-light);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: 14px 40px;
+            border-radius: 10px;
+            border: 1px solid var(--color-primary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--color-primary-dark) 0%, #1e4a7a 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(74, 144, 226, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--color-primary);
+            padding: 14px 40px;
+            border-radius: 10px;
+            border: 2px solid var(--color-primary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(74, 144, 226, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 3;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--color-text-dark) 0%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.2);
+            transform: translateY(-10px);
+            background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(74, 144, 226, 0.05) 100%);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--color-text-dark);
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card p {
+            color: var(--color-text-light);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Modules Section */
+        .modules {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .module-card {
+            background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(74, 144, 226, 0.05) 100%);
+            border: 2px solid var(--color-border);
+            border-radius: 20px;
+            padding: 40px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .module-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+        }
+
+        .module-card:hover::before {
+            top: -30%;
+            right: 0;
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .module-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--color-text-dark);
+            position: relative;
+            z-index: 2;
+        }
+
+        .module-description {
+            color: var(--color-text-light);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+            font-size: 1rem;
+        }
+
+        .module-features {
+            list-style: none;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .module-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            color: var(--color-text-light);
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .module-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .module-link {
+            display: inline-block;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid var(--color-primary);
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .module-link:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--color-text-dark) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-bg-secondary);
+            border-top: 1px solid var(--color-border);
+            padding: 40px;
+            text-align: center;
+            color: var(--color-text-light);
+            margin-top: 100px;
+        }
+
+        footer p {
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-secondary);
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0.1s both; }
+        .feature-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.2s both; }
+        .feature-card:nth-child(3) { animation: fadeInUp 0.6s ease-out 0.3s both; }
+        .feature-card:nth-child(4) { animation: fadeInUp 0.6s ease-out 0.4s both; }
+
+        .module-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0.2s both; }
+        .module-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.3s both; }
+        .module-card:nth-child(3) { animation: fadeInUp 0.6s ease-out 0.4s both; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .features, .modules, .cta-section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .module-card {
+                padding: 30px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-container {
+                justify-content: space-between;
+            }
+
+            .hero {
+                padding: 20px;
+                margin-top: 70px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .module-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-card, .module-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">OCP</div>
+            <ul class="nav-links">
+                <li><a href="#features">Características</a></li>
+                <li><a href="#modules">Módulos</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+            <a href="#modules" class="cta-button">Explorar</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Organización Comunitaria del Pueblo</h1>
+            <p>Empoderando comunidades a través de la gestión colaborativa, transparencia y cambio sostenible.</p>
+            
+            <div class="hero-buttons">
+                <a href="#modules" class="btn-primary">Ver Módulos</a>
+                <a href="#features" class="btn-secondary">Conocer Más</a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div style="font-size: 2rem;">↓</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Por Qué OCP</h2>
+        <p class="section-subtitle">Una plataforma integral para impulsar cambios positivos en tu comunidad</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Datos en Tiempo Real</h3>
+                <p>Visualiza métricas clave y KPIs de tus proyectos comunitarios con dashboards intuitivos y actualizados.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🗺️</div>
+                <h3>Mapeo Interactivo</h3>
+                <p>Localiza iniciativas, recursos y participantes en tu área con mapas dinámicos e integración geoespacial.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Seguimiento de Progreso</h3>
+                <p>Monitorea cada fase de tus proyectos con timelines visuales, indicadores de estado y reportes detallados.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>Colaboración Transparente</h3>
+                <p>Gestiona equipos, asigna responsabilidades y mantén a todos alineados en objetivos comunes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules" id="modules">
+        <h2 class="section-title">Nuestros Módulos</h2>
+        <p class="section-subtitle">Herramientas especializadas para cada aspecto de tu gestión comunitaria</p>
+        
+        <div class="modules-grid">
+            <!-- Dashboard Module -->
+            <a href="ocp-puente-datos.html" class="module-card">
+                <div class="module-icon">📊</div>
+                <h3>Dashboard Puente de Datos</h3>
+                <p class="module-description">Centro de inteligencia para tu comunidad. Vista integral de KPIs, indicadores de impacto y análisis de datos.</p>
+                <ul class="module-features">
+                    <li>Gráficos interactivos en vivo</li>
+                    <li>Exportación de reportes</li>
+                    <li>Mapas geoespaciales</li>
+                    <li>Filtrado avanzado</li>
+                </ul>
+                <span class="module-link">Acceder →</span>
+            </a>
+
+            <!-- Ruta del Cambio Module -->
+            <a href="ruta-del-cambio-module.html" class="module-card">
+                <div class="module-icon">🛤️</div>
+                <h3>Ruta del Cambio</h3>
+                <p class="module-description">Planifica, visualiza y monitorea la evolución de tus proyectos comunitarios desde inicio hasta conclusión.</p>
+                <ul class="module-features">
+                    <li>Timeline visual interactivo</li>
+                    <li>Seguimiento de fases</li>
+                    <li>Gestor de tareas</li>
+                    <li>Indicadores de progreso</li>
+                </ul>
+                <span class="module-link">Explorar →</span>
+            </a>
+
+            <!-- New Modules Placeholder -->
+            <a href="#" onclick="alert('Próximamente'); return false;" class="module-card">
+                <div class="module-icon">🌐</div>
+                <h3>Centro de Gestión</h3>
+                <p class="module-description">Administración centralizada de usuarios, permisos, configuraciones y preferencias de tu organización.</p>
+                <ul class="module-features">
+                    <li>Gestión de usuarios</li>
+                    <li>Control de accesos</li>
+                    <li>Configuración avanzada</li>
+                    <li>Auditoría y logs</li>
+                </ul>
+                <span class="module-link">Próximamente →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-content">
+            <h2>Comienza tu Transformación Comunitaria Hoy</h2>
+            <p>Únete a las comunidades que están generando cambio real con OCP. Gestiona, colabora y prospera juntos.</p>
+            <a href="#modules" class="btn-primary">Explorar Módulos</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>OCP - Organización Comunitaria del Pueblo</strong></p>
+        <p>Empoderando comunidades a través de la tecnología y la colaboración</p>
+        
+        <div class="footer-links">
+            <a href="#">Sobre Nosotros</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Términos de Uso</a>
+            <a href="#">Contacto</a>
+        </div>
+        
+        <p>© 2026 OCP. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const nav = document.querySelector('nav');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset;
+            if (scrollTop > 100) {
+                nav.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.5)';
+            } else {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.4)';
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .module-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
