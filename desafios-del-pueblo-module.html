@@ -163,6 +163,7 @@
             background: var(--color-bg-card);
             padding: 10px 20px 0;
             border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .tabs-container {
@@ -177,17 +178,24 @@
             background: none;
             border-radius: 12px 12px 0 0;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
             color: var(--color-text-light);
+            letter-spacing: 0.3px;
+        }
+
+        .tab:hover {
+            color: var(--color-text-dark);
+            background: rgba(74, 144, 226, 0.05);
         }
 
         .tab.active {
-            background: rgba(74, 144, 226, 0.1);
+            background: rgba(74, 144, 226, 0.12);
             color: var(--color-primary);
             border-bottom: 2px solid var(--color-primary);
+            text-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
         }
 
         .tab:not(.active) {
@@ -204,39 +212,49 @@
 
         /* Featured Challenge */
         .featured-challenge {
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
+            background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(30, 38, 57, 0.8) 100%);
+            border: 1px solid rgba(74, 144, 226, 0.15);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 25px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15), inset 0 1px 0 rgba(74, 144, 226, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .featured-challenge::before {
             content: '';
             position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 60px;
-            height: 60px;
-            background: rgba(74, 144, 226, 0.1);
+            top: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.2) 0%, transparent 70%);
             border-radius: 50%;
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         .featured-badge {
-            background: var(--color-primary);
+            background: linear-gradient(135deg, var(--color-primary) 0%, rgba(74, 144, 226, 0.9) 100%);
             color: white;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             display: inline-flex;
             align-items: center;
             gap: 5px;
             margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+            backdrop-filter: blur(4px);
         }
 
         .challenge-card {
@@ -252,7 +270,8 @@
 
         .challenge-card:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 5px 20px rgba(74, 144, 226, 0.1), var(--shadow-md);
+            border-color: rgba(74, 144, 226, 0.2);
         }
 
         .challenge-header {
