@@ -50,12 +50,13 @@
 
         /* Header */
         .header {
-            background: var(--color-bg-secondary);
+            background: linear-gradient(135deg, var(--color-bg-secondary) 0%, rgba(26, 31, 46, 0.8) 100%);
             color: var(--color-text-dark);
-            padding: 20px;
+            padding: 24px 20px 16px;
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .header::before {
@@ -63,10 +64,11 @@
             position: absolute;
             top: -50%;
             right: -20px;
-            width: 80px;
+            width: 100px;
             height: 200%;
-            background: rgba(255,255,255,0.05);
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.1) 0%, transparent 70%);
             transform: rotate(15deg);
+            pointer-events: none;
         }
 
         .header-content {
@@ -78,61 +80,82 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            padding: 8px 12px;
             font-size: 14px;
-            opacity: 0.9;
             cursor: pointer;
             color: var(--color-text-light);
             transition: var(--transition);
+            border-radius: 8px;
+            background: rgba(74, 144, 226, 0.05);
         }
 
         .back-btn:hover {
             color: var(--color-primary);
+            background: rgba(74, 144, 226, 0.15);
+            transform: translateX(-3px);
         }
 
         .module-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
             gap: 10px;
             color: var(--color-text-dark);
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            font-size: 14px;
-            opacity: 0.8;
+            font-size: 13px;
             color: var(--color-text-light);
+            font-weight: 500;
         }
 
         /* Stats Bar */
         .stats-bar {
             background: var(--color-bg-card);
-            padding: 15px 20px;
+            padding: 20px 20px;
             border-bottom: 1px solid var(--color-border);
             display: flex;
             justify-content: space-around;
             text-align: center;
+            gap: 12px;
         }
 
         .stat-item {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 6px;
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(74, 144, 226, 0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .stat-item:hover {
+            background: rgba(74, 144, 226, 0.12);
+            border-color: rgba(74, 144, 226, 0.2);
         }
 
         .stat-number {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--color-primary);
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-label {
-            font-size: 11px;
-            color: var(--color-text-light);
+            font-size: 10px;
+            color: var(--color-text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            font-weight: 600;
         }
 
         /* Filter Tabs */
@@ -517,9 +540,26 @@
             .container {
                 max-width: 100%;
             }
+
+            .header {
+                padding: 20px 16px 12px;
+            }
+            
+            .module-title {
+                font-size: 22px;
+            }
             
             .stats-bar {
-                padding: 12px 15px;
+                padding: 16px 12px;
+                gap: 8px;
+            }
+
+            .stat-item {
+                padding: 10px;
+            }
+
+            .stat-number {
+                font-size: 20px;
             }
             
             .challenges-container {
